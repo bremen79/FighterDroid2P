@@ -5,7 +5,9 @@ It works by associating the joystick and its buttons to the keys of a virtual ke
 
 It has been tested (but not too much ;) ) on the Yoga Flame and on the Marvel vs Capcom 2 cabinets. Please let me know if it works on the other cabinets too. In theory, the Marvel vs Capcom, the Big Blue, and The X-Men vs Street Fighter, should all work with the Yoga Flame apk: it would be great to have some feedback on this!
 
-This is literally my first Android app, written in my spare time, in just ~1 week. So, it is very possible that something better could be done! For this reason, I release the code so that people more expert than me can improve and/or build on it. In fact, I might have reached the best I can do, at least in my spare time: if you want to propose changes, you will have to suggest the actual changes to the code! Also, to report bugs, you'll have to know how to use adb, otherwise I will not be able to know what is going on.
+This is literally my first Android app, written in my spare time, in just ~1 week. So, it is very possible that something better could be done! For this reason, I release the code so that people more expert than me can improve and/or build on it. In fact, I might have reached the best I can do, at least in my spare time: if you want to propose changes, you will have to suggest the actual changes to the code! 
+
+To report bugs, please be as specific as possible and remember that I only have the Yoga Flame cabinet. So, for other cabinets, you'll have to know how to use adb to gather the logs, otherwise I will not be able to know what is going on.
 
 
 # Disclaimer
@@ -20,11 +22,11 @@ Additionally, please be aware that this software is intended solely for educatio
 The signed apps can be found in the signed_apks directory. Just install the appropriate version as any other app on your cabinet and run it. If asked, give the permission to access the files on the device.
 After the first run, the version that auto starts should automatically start itself at each boot. Instead, the version that does not auto start must be executed at each boot when needed.
 
-Given that it emulates a virtual keyboard, it should not interfere with the stock apps, so it is reasonably safe to leave it running. However, if you are a professional player, you might be worried about having a useless process in the background consuming CPU cycles. For this reason, I also created the version that does not auto start.
+Given that the app emulates a virtual keyboard, it should not interfere with the stock apps, so it is reasonably safe to leave it running. However, if you are a professional player, you might be worried about having a useless process in the background consuming CPU cycles. For this reason, I also created the version that does not auto start.
 
-Note that the app does not modify your system in any way, so if it does not work or you do not like at any moment you can just uninstall it and your system will be the same as before.
+Note that the app does not modify your system in any way, so, if it does not work or you do not like, at any moment you can just uninstall it and your system will be the same as before.
 
-If you received one of the beta test versions, unistall it before install the new version.
+Important: If you received one of the beta test versions, unistall it before installing the new version.
 
 
 # History
@@ -71,10 +73,10 @@ Another thing to improve is the exact timing to use to poll the device. I use a 
 # Acknowledgments
 
 None of the above would have been possible without studying the documentation and the code by Team Encoder to add a second joystick, that can be found at https://github.com/Team-Encoder/A1AndroidControlFix.
-Given that they did not release a version of their software for the Yoga Flame and the Marvel vs Capcom 2, I wanted to do a port. However, while their approach might be better (that is with a smaller input lag because they rewrite the native drivers in C), it required too much background knowledge on Linux and Android that I did not have. In fact, emulating a gamepad in their approach requires to access a device that apparently not even an Android system app can access.
+Given that they did not release a version of their software for the Yoga Flame and the Marvel vs Capcom 2, I wanted to do a port. However, while their approach might be better (that is with a smaller input lag because they rewrite the native drivers in C), it requires too much background knowledge on Linux and Android that I do not have. In fact, emulating a gamepad in their approach requires to access a device that apparently not even an Android system app can access, so they need to go around the Linux permissions.
 So, I decided to take an easier route, that might be enough for casual players (like myself!).
 
-Another very important source of information for me where the videos and software by The Code Always Wins, https://www.youtube.com/c/thecodealwayswins.
+Another very important source of information for me were the videos and software by The Code Always Wins, https://www.youtube.com/c/thecodealwayswins.
 
 Last but not the least, I want to thank the beta testers:
 
