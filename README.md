@@ -20,7 +20,7 @@ Additionally, please be aware that this software is intended solely for educatio
 # Installation
 
 The signed apps can be found in the signed_apks directory. Just install the appropriate version as any other app on your cabinet and run it. If asked, give the permission to access the files on the device.
-After the first run, the version that auto starts should automatically start itself at each boot. Instead, the version that does not auto start must be executed at each boot when needed.
+After the first run, the version that auto starts should automatically start itself at each boot. Also, it seems that the autostart version as to be in the internal memory and not on the SD card, otherwise it does not autostart. Instead, the version that does not auto start must be executed at each boot when needed.
 
 Given that the app emulates a virtual keyboard, it should not interfere with the stock apps, so it is reasonably safe to leave it running. However, if you are a professional player, you might be worried about having a useless process in the background consuming CPU cycles. For this reason, I also created the version that does not auto start.
 
