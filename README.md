@@ -29,6 +29,17 @@ Note that the app does not modify your system in any way, so, if it does not wor
 Important: If you received one of the beta test versions, unistall it before installing the new version.
 
 
+# Use with RetroArch
+
+This app should work as it is with RetroArch.
+However, RetroArch might have some problems with games that requires 2 or 3 buttons to be pressed at the same time. This is a problem of RetroArch, not of this app, in fact you could experience the same problems with the Player One Joystick without this app.
+Luckily, there is an easy fix found by calwinarlo on Reddit: Open the RetroArch Quick Menu and go to Latency, find "Input Block Timeout" and set it to any number other than 0 and 1 (it seems that 1 fixes the issue for the left stick but not the right, 2 fixes both, but you can experiment with different numbers).
+
+
+# Use with RetroX
+
+At the moment, the app does not seem to work with RetroX, but I did not look into this issue yet. As soon as I have some spare time, I will take a look: I am optimistic that I can find a fix for it.
+
 # History
 
 Beta versions:  
@@ -80,6 +91,8 @@ Another very important source of information for me were the videos and software
 
 Last but not the least, I want to thank the beta testers:
 
+- Martin Biener for the first test on the Yoga Flame
 - chrisalddin for the many tests of the Yoga Flame version and for the idea to use numbers for the mapping
 - Amelia Celeste Burgos for the many tests of the Marvel vs Capcom 2 version
+- calwinarlo for finding a solution to the RetroArch multiple button issue
 - All the other people from Reddit, Facebook, Discord that encouraged me, even just with an emoticon :)
