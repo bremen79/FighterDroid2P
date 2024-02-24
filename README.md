@@ -29,16 +29,14 @@ Note that the app does not modify your system in any way, so, if it does not wor
 Important: If you received one of the beta test versions, unistall it before installing the new version.
 
 
+This app should work with RetroArch, Mame4Droid, and RetroX. For RetroX, select the gamepad version, and for the others select the numeric pad version.
+
+
 # Use with RetroArch
 
-This app should work as it is with RetroArch.
-However, RetroArch might have some problems with games that requires 2 or 3 buttons to be pressed at the same time. This is a problem of RetroArch, not of this app, in fact you could experience the same problems with the Player One Joystick without this app.
+RetroArch might have some problems with games that requires 2 or 3 buttons to be pressed at the same time. This is a problem of RetroArch, not of this app, in fact you could experience the same problem with the Player One Joystick without this app.
 Luckily, there is an easy fix found by calwinarlo on Reddit: Open the RetroArch Quick Menu and go to Latency, find "Input Block Timeout" and set it to any number other than 0 and 1 (it seems that 1 fixes the issue for the left stick but not the right, 2 fixes both, but you can experiment with different numbers).
 
-
-# Use with RetroX
-
-At the moment, the app does not seem to work with RetroX, but I did not look into this issue yet. As soon as I have some spare time, I will take a look: I am optimistic that I can find a fix for it.
 
 # History
 
@@ -51,7 +49,8 @@ Beta versions:
 
 
 Public versions  
-1.1.0: First public version
+1.1.0: First public version  
+1.2.0: Added support for RetroX, way smaller delay using reflections and non-locking injection of events  
 
 
 # Technical Details
@@ -64,10 +63,9 @@ The app works using only the second joystick outputs because the first one is al
 
 The emulated keys corresponds to numeric keypads keys. This particular choice is motivated by the fact that we want to use keys that are not commonly associated with emulators, to facilitate the configuration by the users. However, in principle any set of keys could be emulated.
 
-Android keeps track of each time a key is pressed and released, so we have to do the same in the app: We keep track of the status of the keys so that we inject the correct key pressed or key released event.
-A better way would be to emulate a gamepad, but I am not sure how to do it. The virtual keyboard was just the easiest thing for me.
+Android keeps track of each time a key is pressed and released, so we have to do the same in the app: We keep track of the status of the keys so that we inject the correct key pressed or key released event. In order to have a very minimal delay of 1-2ms, we do not wait for the injection to be succesfully received.
 
-A note on the 2nd player button: this key is already assigned to the virtual gamepad of the first joystick. However, some software (e.g., RetroArch) do not allow to use keys from a gamepad for two players. So, I decided to emulate a key for that button too. This effectively means that when you press that button, two Android events will be generated: one from the native driver for the virtual gamepad and one from the app for the virtual key press. This does not seem to be an issue, in the sense that the RetroArch and Mame4Droid still register only one of the two events.
+A note on the 2nd player button: this key is already assigned to the virtual gamepad of the first joystick. However, some software (e.g., RetroArch) do not allow to use keys from a gamepad for two players. So, I decided to emulate a key for that button too. This effectively means that when you press that button, two Android events will be generated: one from the native driver for the virtual gamepad and one from this app. This does not seem to be an issue, in the sense that the RetroArch, Mame4Droid, and RetroX still register the event correctly.
 
 Normally Android does not allow to emulate key presses, because this would allow apps to interfere among them and this could pose a security threat. So, the app needs the special INJECT_EVENTS permission. Moreover, the access to the internal device of the joystick is also given only to system apps.
 So, for both things above, we need to write a system app. The way to do it in Android is to sign the app using a 'platform' key. The platform keys for the Yoga Flame and the MvC2 are different and both are publicly available online. For the moment I will not disclose where to find them because the others-in-the-know also decided not to disclose it. However, at least now you know how it works! Suffices to say that if I found them, anyone sufficiently motivated can do the same. This also means that without the keys you will not be able to make changes to the code.
