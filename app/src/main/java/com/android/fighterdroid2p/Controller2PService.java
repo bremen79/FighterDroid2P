@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 
 public class Controller2PService extends Service {
     private long clock = SystemClock.uptimeMillis();
-    private long previousClock = SystemClock.uptimeMillis();
+    //private long previousClock = SystemClock.uptimeMillis();
     private FileInputStream fileInputStream = null;
 
 
@@ -127,8 +127,8 @@ public class Controller2PService extends Service {
                     //int i = ((bArr[1] & 255) << 8) | (bArr[0] & 255);
                     clock = SystemClock.uptimeMillis();
                     int i2 = ((bArr[3] & 255) << 8) | (bArr[2] & 255);
-                    Log.d("Bremen79", String.format("i2: %d, polling time: %d", i2, clock-previousClock));
-                    previousClock=clock;
+                    //Log.d("Bremen79", String.format("i2: %d, polling time: %d", i2, clock-previousClock));
+                    //previousClock=clock;
                     if ((i2 & UP) != 0) {
                         if (!holdUP) {
                             pressKeyEvent(BuildConfig.UP_KEY);
