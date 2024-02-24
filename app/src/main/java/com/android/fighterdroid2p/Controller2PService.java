@@ -1,6 +1,5 @@
 package com.android.fighterdroid2p;
 
-import android.app.Instrumentation;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -11,6 +10,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.InputDevice;
+import android.view.InputEvent;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 
@@ -18,13 +18,20 @@ import androidx.core.app.NotificationCompat;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class Controller2PService extends Service {
-    //private final IBinder mBinder = new Binder();
     private long clock = SystemClock.uptimeMillis();
+    private long previousClock = SystemClock.uptimeMillis();
     private FileInputStream fileInputStream = null;
+
+
+    private Class<?> inputManagerClass;
+    private Method getInstanceMethod;
+    private Object inputManager;
+    private Method injectInputEventMethod;
 
     private static final int UP = 4;
     private static final int DOWN = 8;
@@ -60,6 +67,22 @@ public class Controller2PService extends Service {
     @Override // android.app.Service
     public void onCreate() {
         super.onCreate();
+
+        // The injectInputEvent cannot be accessed normally, so we use Reflection to do it
+        // see https://www.pocketmagic.net/injecting-events-programatically-on-android/
+        try {
+            // Get the InputManager class
+            inputManagerClass = Class.forName("android.hardware.input.InputManager");
+            // Get the getInstance method of InputManager
+            getInstanceMethod = inputManagerClass.getMethod("getInstance");
+            // Invoke the getInstance method to get an instance of InputManager
+            inputManager = getInstanceMethod.invoke(null);
+            // Get the injectInputEvent method
+            injectInputEventMethod = inputManagerClass.getMethod("injectInputEvent", InputEvent.class, int.class);
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
+                 InvocationTargetException e) {
+            e.printStackTrace();
+        }
         Log.d("Bremen79", "Service created");
         startMyOwnForeground();
     }
@@ -89,9 +112,6 @@ public class Controller2PService extends Service {
         }
     }
 
-    // We map the joystick and buttons to numeric keypad keys. The reason is that we don't want to map to any key already used by retroarch and mame.
-    // See the following for the retroarch accepted keyboard keys:
-    // https://gist.github.com/Monroe88/0f7aa02156af6ae2a0e728852dcbfc90
     private void readUmidoKeys() {
         if (new File("/dev/umidokey").exists()) {
             Log.d("Bremen79", "umidokey device exists");
@@ -107,121 +127,121 @@ public class Controller2PService extends Service {
                     //int i = ((bArr[1] & 255) << 8) | (bArr[0] & 255);
                     clock = SystemClock.uptimeMillis();
                     int i2 = ((bArr[3] & 255) << 8) | (bArr[2] & 255);
-                    Log.d("Bremen79", String.format("i2: %d", i2));
+                    Log.d("Bremen79", String.format("i2: %d, polling time: %d", i2, clock-previousClock));
+                    previousClock=clock;
                     if ((i2 & UP) != 0) {
                         if (!holdUP) {
-                            pressKeyEvent(152);
+                            pressKeyEvent(BuildConfig.UP_KEY);
                             holdUP = true;
                         }
                     } else {
                         if (holdUP) {
-                            releaseKeyEvent(152);
+                            releaseKeyEvent(BuildConfig.UP_KEY);
                             holdUP = false;
                         }
                         if ((i2 & DOWN) != 0) {
                             if (!holdDOWN) {
-                                pressKeyEvent(146);
+                                pressKeyEvent(BuildConfig.DOWN_KEY);
                                 holdDOWN = true;
                             }
                         } else if (holdDOWN) {
-                            releaseKeyEvent(146);
+                            releaseKeyEvent(BuildConfig.DOWN_KEY);
                             holdDOWN = false;
                         }
                     }
                     if ((i2 & LEFT) != 0) {
                         if (!holdLEFT) {
-                            pressKeyEvent(148);
+                            pressKeyEvent(BuildConfig.LEFT_KEY);
                             holdLEFT = true;
                         }
                     } else {
                         if (holdLEFT) {
-                            releaseKeyEvent(148);
+                            releaseKeyEvent(BuildConfig.LEFT_KEY);
                             holdLEFT = false;
                         }
                         if ((i2 & RIGHT) != 0) {
                             if (!holdRIGHT) {
-                                pressKeyEvent(150);
+                                pressKeyEvent(BuildConfig.RIGHT_KEY);
                                 holdRIGHT = true;
                             }
                         } else if (holdRIGHT) {
-                            releaseKeyEvent(150);
+                            releaseKeyEvent(BuildConfig.RIGHT_KEY);
                             holdRIGHT = false;
                         }
                     }
                     if ((i2 & P1) != 0) {
                         if (!holdP1) {
-                            pressKeyEvent(151);
+                            pressKeyEvent(BuildConfig.P1_KEY);
                             holdP1 = true;
                         }
                     } else if (holdP1) {
-                        releaseKeyEvent(151);
+                        releaseKeyEvent(BuildConfig.P1_KEY);
                         holdP1 = false;
                     }
                     if ((i2 & P2) != 0) {
                         if (!holdP2) {
-                            pressKeyEvent(153);
+                            pressKeyEvent(BuildConfig.P2_KEY);
                             holdP2 = true;
                         }
                     } else if (holdP2) {
-                        releaseKeyEvent(153);
+                        releaseKeyEvent(BuildConfig.P2_KEY);
                         holdP2 = false;
                     }
                     if ((i2 & P3) != 0) {
                         if (!holdP3) {
-                            pressKeyEvent(149);
+                            pressKeyEvent(BuildConfig.P3_KEY);
                             holdP3 = true;
                         }
                     } else if (holdP3) {
-                        releaseKeyEvent(149);
+                        releaseKeyEvent(BuildConfig.P3_KEY);
                         holdP3 = false;
                     }
                     if ((i2 & P4) != 0) {
                         if (!holdP4) {
-                            pressKeyEvent(145);
+                            pressKeyEvent(BuildConfig.P4_KEY);
                             holdP4 = true;
                         }
                     } else if (holdP4) {
-                        releaseKeyEvent(145);
+                        releaseKeyEvent(BuildConfig.P4_KEY);
                         holdP4 = false;
                     }
                     if ((i2 & P5) != 0) {
                         if (!holdP5) {
-                            pressKeyEvent(147);
+                            pressKeyEvent(BuildConfig.P5_KEY);
                             holdP5 = true;
                         }
                     } else if (holdP5) {
-                        releaseKeyEvent(147);
+                        releaseKeyEvent(BuildConfig.P5_KEY);
                         holdP5 = false;
                     }
                     if ((i2 & P6) != 0) {
                         if (!holdP6) {
-                            pressKeyEvent(161);
+                            pressKeyEvent(BuildConfig.P6_KEY);
                             holdP6 = true;
                         }
                     } else if (holdP6) {
-                        releaseKeyEvent(161);
+                        releaseKeyEvent(BuildConfig.P6_KEY);
                         holdP6 = false;
                     }
                     if ((i2 & START) != 0) {
                         if (!holdSTART) {
-                            pressKeyEvent(158);
+                            pressKeyEvent(BuildConfig.START_KEY);
                             holdSTART = true;
                         }
                     } else if (holdSTART) {
-                        releaseKeyEvent(158);
+                        releaseKeyEvent(BuildConfig.START_KEY);
                         holdSTART = false;
                     }
 
-                    // Here I am not sure what is the best number
-                    // I took this from Team Encoder code?
-                    Thread.sleep(16L);
+                    // We are aiming at polling the state of the joystick every 16ms, that is at 62.5Hz
+                    // So, if the processing took more than 16ms, we skip the sleep.
+                    long timeSleep = 16L-(SystemClock.uptimeMillis() - clock);
+                    //Log.d("Bremen79", String.format("Sleep time: %d", timeSleep));
+                    if (timeSleep>0)
+                        Thread.sleep(timeSleep);
                 }
-            } catch (FileNotFoundException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
-            } catch (IOException e2) {
-                e2.printStackTrace();
-            } catch (InterruptedException e3) {
-                e3.printStackTrace();
             }
         } else {
             Log.d("Bremen79", "no umidokey device found");
@@ -235,13 +255,6 @@ public class Controller2PService extends Service {
         return START_STICKY;
     }
 
-    // This is the easiest way I found to inject key events
-    // see https://www.pocketmagic.net/injecting-events-programatically-on-android/
-    private void injectKeyEvent(KeyEvent event) {
-        Instrumentation inst = new Instrumentation();
-        inst.sendKeySync(event);
-    }
-
     @Override // android.app.Service
     public final void onDestroy() {
         Log.d("Bremen79", "Service onDestroy");
@@ -249,7 +262,7 @@ public class Controller2PService extends Service {
             try {
                 fileInputStream.close();
                 Log.d("Bremen79", "Closed umidokey");
-            } catch (Exception unused) {
+            } catch (Exception ignored) {
             }
             fileInputStream = null;
         }
@@ -261,14 +274,24 @@ public class Controller2PService extends Service {
     // see https://robertohuertas.com/2019/06/29/android_foreground_services/
 
     private void pressKeyEvent(int keyCode) {
-        injectKeyEvent(new KeyEvent(clock, clock, KeyEvent.ACTION_DOWN, keyCode, 0, 0,
-                KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD));
-        Log.d("Bremen79", String.format("Keypress down sent, processing time: %d ms", SystemClock.uptimeMillis() - clock));
+        try {
+            injectInputEventMethod.invoke(inputManager, new KeyEvent(clock, clock, KeyEvent.ACTION_DOWN, keyCode, 0, 0,
+                            KeyCharacterMap.SPECIAL_FUNCTION, 0, 0, InputDevice.SOURCE_KEYBOARD),
+                    0);
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        Log.d("Bremen79", String.format("Keypress down sent, response time: %d ms", SystemClock.uptimeMillis() - clock));
     }
 
     private void releaseKeyEvent(int keyCode) {
-        injectKeyEvent(new KeyEvent(clock, clock, KeyEvent.ACTION_UP, keyCode, 0, 0,
-                KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD));
-        Log.d("Bremen79", String.format("Keypress up sent, processing time: %d ms", SystemClock.uptimeMillis() - clock));
+        try {
+            injectInputEventMethod.invoke(inputManager,new KeyEvent(clock, clock, KeyEvent.ACTION_UP, keyCode, 0, 0,
+                        KeyCharacterMap.SPECIAL_FUNCTION, 0, 0, InputDevice.SOURCE_KEYBOARD),
+                        0);
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        Log.d("Bremen79", String.format("Keypress up sent, response time: %d ms", SystemClock.uptimeMillis() - clock));
     }
 }
