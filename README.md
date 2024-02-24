@@ -50,7 +50,7 @@ Beta versions:
 
 Public versions  
 1.1.0: First public version  
-1.2.0: Added support for RetroX, way smaller delay using reflections and non-locking injection of events  
+1.2.0: Added support for RetroX, way smaller delay using reflections and non-locking injection of events, adaptive sleep  
 
 
 # Technical Details
@@ -76,7 +76,7 @@ The code refers to the auto-start version. The non-auto-start version is obtaine
 
 I suspect a better way would be to directly read the serial port for the status of the joystick and transform that directly into Android events. This would remove the delay of having two processes in a row: one from the system and the other from the app. I think this should be possible just using a system app, without the need to hack the Linux permissions. One would also to take care of the first joystick as well. However, as I said above, I already reached the best I can do. Studying from scratch how the serial port works and implementing the above would take too much time, that unfortunately I do not have.
 
-Another thing to improve is the exact timing to use to poll the device. I use a simple sleep with a fixed time, but I strongly suspect something better can be done.
+~~Another thing to improve is the exact timing to use to poll the device. I use a simple sleep with a fixed time, but I strongly suspect something better can be done.~~ Adaptive sleep added in version 1.2.0.
 
 
 # Acknowledgments
