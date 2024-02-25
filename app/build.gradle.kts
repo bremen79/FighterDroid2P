@@ -72,13 +72,20 @@ android {
             buildConfigField("int", "DOWN_KEY", "20")
             buildConfigField("int", "LEFT_KEY", "21")
             buildConfigField("int", "RIGHT_KEY", "22")
-            buildConfigField("int", "P1_KEY", "96")
+            buildConfigField("int", "P1_KEY", "151")
+            buildConfigField("int", "P2_KEY", "153")
+            buildConfigField("int", "P3_KEY", "149")
+            buildConfigField("int", "P4_KEY", "145")
+            buildConfigField("int", "P5_KEY", "147")
+            buildConfigField("int", "P6_KEY", "161")
+            buildConfigField("int", "START_KEY", "158")
+            /*buildConfigField("int", "P1_KEY", "96")
             buildConfigField("int", "P2_KEY", "97")
             buildConfigField("int", "P3_KEY", "99")
             buildConfigField("int", "P4_KEY", "98")
             buildConfigField("int", "P5_KEY", "100")
             buildConfigField("int", "P6_KEY", "101")
-            buildConfigField("int", "START_KEY", "108")
+            buildConfigField("int", "START_KEY", "108")*/
         }
     }
 }

@@ -276,7 +276,7 @@ public class Controller2PService extends Service {
     private void pressKeyEvent(int keyCode) {
         try {
             injectInputEventMethod.invoke(inputManager, new KeyEvent(clock, clock, KeyEvent.ACTION_DOWN, keyCode, 0, 0,
-                            KeyCharacterMap.SPECIAL_FUNCTION, 0, 0, InputDevice.SOURCE_KEYBOARD),
+                            KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD),
                     0);
         } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
@@ -287,7 +287,7 @@ public class Controller2PService extends Service {
     private void releaseKeyEvent(int keyCode) {
         try {
             injectInputEventMethod.invoke(inputManager,new KeyEvent(clock, clock, KeyEvent.ACTION_UP, keyCode, 0, 0,
-                        KeyCharacterMap.SPECIAL_FUNCTION, 0, 0, InputDevice.SOURCE_KEYBOARD),
+                        KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD),
                         0);
         } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
