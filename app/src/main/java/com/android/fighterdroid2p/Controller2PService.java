@@ -4,7 +4,9 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.input.InputManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -26,6 +28,8 @@ public class Controller2PService extends Service {
     private long clock = SystemClock.uptimeMillis();
     //private long previousClock = SystemClock.uptimeMillis();
     private FileInputStream fileInputStream = null;
+
+    private int idDevice = -1;
 
 
     private Class<?> inputManagerClass;
@@ -112,6 +116,23 @@ public class Controller2PService extends Service {
         }
     }
 
+    private int findInputDeviceIdByName(String deviceName) {
+        InputManager inputManager = (InputManager) getSystemService(Context.INPUT_SERVICE);
+
+        int[] deviceIds = inputManager.getInputDeviceIds();
+
+        for (int deviceId : deviceIds) {
+            String name = inputManager.getInputDevice(deviceId).getName();
+
+            if (name.equals(deviceName)) {
+                return deviceId;
+            }
+        }
+
+        // If the device with the given name is not found, return -1 or handle as needed
+        return -1;
+    }
+
     private void readUmidoKeys() {
         if (new File("/dev/umidokey").exists()) {
             Log.d("Bremen79", "umidokey device exists");
@@ -120,6 +141,10 @@ public class Controller2PService extends Service {
                 if (fileInputStream == null)
                     fileInputStream = new FileInputStream("/dev/umidokey");
                 Log.d("Bremen79", "umidokey device opened");
+
+                idDevice = findInputDeviceIdByName("umidokey2");
+                Log.d("Bremen79", String.valueOf(idDevice));
+
                 byte[] bArr = {0, 0, 0, 0};
                 while (true) {
                     fileInputStream.read(bArr, 0, 4);
@@ -276,7 +301,7 @@ public class Controller2PService extends Service {
     private void pressKeyEvent(int keyCode) {
         try {
             injectInputEventMethod.invoke(inputManager, new KeyEvent(clock, clock, KeyEvent.ACTION_DOWN, keyCode, 0, 0,
-                            KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD),
+                            idDevice, 0, 0, 1),
                     0);
         } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
@@ -287,7 +312,7 @@ public class Controller2PService extends Service {
     private void releaseKeyEvent(int keyCode) {
         try {
             injectInputEventMethod.invoke(inputManager,new KeyEvent(clock, clock, KeyEvent.ACTION_UP, keyCode, 0, 0,
-                        KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD),
+                            idDevice, 0, 0, 1),
                         0);
         } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();

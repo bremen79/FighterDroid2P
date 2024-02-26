@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.Iterator;
 
+import android.hardware.input.InputManager;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
