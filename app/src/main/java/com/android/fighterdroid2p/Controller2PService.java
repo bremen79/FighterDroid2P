@@ -96,7 +96,7 @@ public class Controller2PService extends Service {
     private void startMyOwnForeground() {
         createNotificationChannel();
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("FighterDroid2P is running in background")
+                .setContentTitle("FighterDroid2P "+BuildConfig.VERSION_NAME+" is running in background")
                 .setPriority(1)
                 .setOngoing(true)
                 .setCategory(NotificationCompat.CATEGORY_SERVICE)
@@ -142,7 +142,7 @@ public class Controller2PService extends Service {
                     fileInputStream = new FileInputStream("/dev/umidokey");
                 Log.d("Bremen79", "umidokey device opened");
 
-                idDevice = findInputDeviceIdByName("umidokey2");
+                idDevice = findInputDeviceIdByName(BuildConfig.DEVICE_NAME);
                 Log.d("Bremen79", String.valueOf(idDevice));
 
                 byte[] bArr = {0, 0, 0, 0};

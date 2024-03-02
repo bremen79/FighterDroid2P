@@ -22,8 +22,8 @@ android {
         minSdk = 24
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 24
-        versionCode = 9
-        versionName = "1.2.1"
+        versionCode = 10
+        versionName = "1.2.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,11 +46,13 @@ android {
         create("numeric") {
             dimension = "keys"
 
+            // For the retroarch version, we use the virtual device to send the events
+            buildConfigField("String", "DEVICE_NAME", "\"Virtual\"")
+
             // We map the joystick and buttons to numeric keypad keys.
             // The reason is that we don't want to map to any key already used by retroarch and mame.
             // See the following for the retroarch accepted keyboard keys:
             // https://gist.github.com/Monroe88/0f7aa02156af6ae2a0e728852dcbfc90
-
             buildConfigField("int", "UP_KEY", "152")
             buildConfigField("int", "DOWN_KEY", "146")
             buildConfigField("int", "LEFT_KEY", "148")
@@ -66,8 +68,10 @@ android {
         create("gamepad") {
             dimension = "keys"
 
-            // We map the joystick and buttons to gamepad keys.
+            // For the RetroX version, we use the umidokey2 device to send the events
+            buildConfigField("String", "DEVICE_NAME", "\"umidokey2\"")
 
+            // We map the joystick and buttons to gamepad keys.
             buildConfigField("int", "UP_KEY", "19")
             buildConfigField("int", "DOWN_KEY", "20")
             buildConfigField("int", "LEFT_KEY", "21")
