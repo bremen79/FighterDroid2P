@@ -20,6 +20,9 @@ Additionally, please be aware that this software is intended solely for educatio
 # Installation
 
 The signed apps can be found in the Releases to the right of the screen. Just install the appropriate version as any other app on your cabinet and run it. If asked, give the permission to access the files on the device.
+
+For the a video tutorial for the MvC2, you can take a look at this [YouTube video](https://www.youtube.com/watch?v=oFziMSZgte0). The video is for the version 1.1.0, but it would be the same for the other versions as well.
+
 After the first run, the version that auto starts should automatically start itself at each boot. Also, it seems that the autostart version has to be in the internal memory and not on the SD card, otherwise it does not autostart. Instead, the version that does not auto start must be executed at each boot when needed.
 
 Given that the app emulates a virtual keyboard, it should not interfere with the stock apps, so it is reasonably safe to leave it running. However, if you are a professional player, you might be worried about having a useless process in the background consuming CPU cycles. For this reason, I also created the version that does not auto start.
@@ -27,7 +30,6 @@ Given that the app emulates a virtual keyboard, it should not interfere with the
 Note that the app does not modify your system in any way, so, if it does not work or you do not like, at any moment you can just uninstall it and your system will be the same as before.
 
 Important: If you received one of the beta test versions, unistall it before installing the new version.
-
 
 This app should work with RetroArch, Mame4Droid, and RetroX. For RetroX, select the RetroX version, and for the others select the RetroArch version.
 
