@@ -22,8 +22,8 @@ android {
         minSdk = 24
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 24
-        versionCode = 10
-        versionName = "1.2.2"
+        versionCode = 11
+        versionName = "1.2.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,7 +43,7 @@ android {
     }
     flavorDimensions += listOf("keys")
     productFlavors {
-        create("numeric") {
+        create("retroarch") {
             dimension = "keys"
 
             // For the retroarch version, we use the virtual device to send the events
@@ -65,11 +65,37 @@ android {
             buildConfigField("int", "P6_KEY", "161")
             buildConfigField("int", "START_KEY", "158")
         }
-        create("gamepad") {
+        create("retrox_yoga") {
             dimension = "keys"
 
             // For the RetroX version, we use the umidokey2 device to send the events
             buildConfigField("String", "DEVICE_NAME", "\"umidokey2\"")
+
+            // We map the joystick and buttons to gamepad keys.
+            buildConfigField("int", "UP_KEY", "19")
+            buildConfigField("int", "DOWN_KEY", "20")
+            buildConfigField("int", "LEFT_KEY", "21")
+            buildConfigField("int", "RIGHT_KEY", "22")
+            buildConfigField("int", "P1_KEY", "151")
+            buildConfigField("int", "P2_KEY", "153")
+            buildConfigField("int", "P3_KEY", "149")
+            buildConfigField("int", "P4_KEY", "145")
+            buildConfigField("int", "P5_KEY", "147")
+            buildConfigField("int", "P6_KEY", "161")
+            buildConfigField("int", "START_KEY", "158")
+            /*buildConfigField("int", "P1_KEY", "96")
+            buildConfigField("int", "P2_KEY", "97")
+            buildConfigField("int", "P3_KEY", "99")
+            buildConfigField("int", "P4_KEY", "98")
+            buildConfigField("int", "P5_KEY", "100")
+            buildConfigField("int", "P6_KEY", "101")
+            buildConfigField("int", "START_KEY", "108")*/
+        }
+        create("retrox_mvc2") {
+            dimension = "keys"
+
+            // For the RetroX version, we use the rk29-keypad device to send the events
+            buildConfigField("String", "DEVICE_NAME", "\"rk29-keypad\"")
 
             // We map the joystick and buttons to gamepad keys.
             buildConfigField("int", "UP_KEY", "19")
