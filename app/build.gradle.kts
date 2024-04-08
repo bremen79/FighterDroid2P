@@ -22,8 +22,8 @@ android {
         minSdk = 24
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 24
-        versionCode = 11
-        versionName = "1.2.3"
+        versionCode = 12
+        versionName = "1.2.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -69,7 +69,7 @@ android {
             dimension = "keys"
 
             // For the RetroX version, we use the umidokey2 device to send the events
-            buildConfigField("String", "DEVICE_NAME", "\"umidokey2\"")
+            buildConfigField("String", "DEVICE_NAME", "\"ACCDET\"")
 
             // We map the joystick and buttons to gamepad keys.
             buildConfigField("int", "UP_KEY", "19")
