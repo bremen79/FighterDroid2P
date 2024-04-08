@@ -21,7 +21,9 @@ Additionally, please be aware that this software is intended solely for educatio
 
 The signed apps can be found in the Releases to the right of the screen. Just install the appropriate version as any other app on your cabinet and run it. If asked, give the permission to access the files on the device.
 
-For the a video tutorial for the MvC2, you can take a look at this [YouTube video](https://www.youtube.com/watch?v=oFziMSZgte0). The video is for the version 1.1.0, but it would be the same for the other versions as well.
+Video tutorials for the installation (not by me!):
+- for the Yoga Flame, [YouTube video](https://www.youtube.com/watch?v=m1gkwDe9c7w)
+- for the MvC2, [YouTube video](https://www.youtube.com/watch?v=oFziMSZgte0). (The video is for the version 1.1.0, but it would be the same for the other versions as well.)
 
 After the first run, the version that auto starts should automatically start itself at each boot. Also, in some cases the autostart version has to be in the internal memory and not on the SD card, otherwise it does not autostart. Instead, the version that does not auto start must be executed at each boot when needed.
 
