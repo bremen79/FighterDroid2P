@@ -52,6 +52,8 @@ Luckily, there is an easy fix found by calwinarlo on Reddit: Open the RetroArch 
 1.1.0: First public version  
 1.2.0: Added support for RetroX, way smaller delay using reflections and non-locking injection of events, adaptive sleep  
 1.2.3: Now the RetroX version uses the umidokey2 device on the Yoga Flame and the rk29-keypad on the MvC2, while the RetroArch versions uses the virtual in all cases  
+1.2.4: Now the RetroX version uses the ACCDET device on the Yoga Flame, so it is compatible with Big Blue  
+
 
 
 # Technical Details
