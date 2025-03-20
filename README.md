@@ -111,7 +111,7 @@ Last but not the least, I want to thank the beta testers:
 - chrisalddin for the many tests of the Yoga Flame version and for the idea to use numbers for the mapping
 - Amelia Celeste Burgos for the many tests of the MvC2 version
 - calwinarlo for finding a solution to the RetroArch multiple button issue
-- Janice Wilson for finding a bug in version 1.2.0 and helping with the best testing
+- Janice Wilson for finding a bug in version 1.2.0 and helping with the beta testing
 - Carlos Osegueda and Marco Tramontano for the tests on the MvC2 for the version 1.2.3
 - DryExpression704 for the tests with RetroX on Big Blue
 - All the other people from Reddit, Facebook, Discord that encouraged me, even just with an emoticon :)
