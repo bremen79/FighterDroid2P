@@ -1,5 +1,9 @@
 # FighterDroid2P
 
+
+*NEW!* I wrote an improved version of this app for Yoga Flame and Shinku Hadoken, you can find it here: https://github.com/bremen79/ImprovedFighterDroid2P
+-
+
 This Android app allows to use the second joystick (and its buttons) on the Arcade1up Fighter Droid cabinets.
 It works by associating the joystick and its buttons to the keys of a virtual keyboard.
 
